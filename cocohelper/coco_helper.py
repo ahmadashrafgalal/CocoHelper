@@ -125,6 +125,38 @@ class _COCOHelper:
         }
 
     def get_ids(self, *category_names):
+        """📊 Return COCO class IDs for given categories.
+
+        Parameters
+        ----------
+        *category_names : str
+            One or more category names to fetch their class IDs.
+            Available categories include:
+                - Person
+                - transport
+                - traffic & signs
+                - animals
+                - personal items
+                - sports & recreation
+                - food & kitchen
+                - indoor objects
+                - electronics
+                - appliances
+                - miscellaneous
+
+        Returns
+        -------
+        list of int
+            List of COCO class IDs for the requested categories.
+
+        Examples
+        --------
+        >>> get_ids("animals")
+        [14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+
+        >>> get_ids("transport", "electronics")
+        [1, 2, 3, 4, 5, 6, 7, 8, 62, 63, 64, 65, 66, 67]
+        """
         ids = []
         for name in category_names:
             if name in self.categories:
@@ -134,6 +166,38 @@ class _COCOHelper:
         return ids
 
     def get_classes(self, *category_names):
+        """🏷️ Return COCO class names for given categories.
+
+        Parameters
+        ----------
+        *category_names : str
+            One or more category names to fetch their class names.
+            Available categories include:
+                - Person
+                - transport
+                - traffic & signs
+                - animals
+                - personal items
+                - sports & recreation
+                - food & kitchen
+                - indoor objects
+                - electronics
+                - appliances
+                - miscellaneous
+
+        Returns
+        -------
+        list of str
+            List of COCO class names for the requested categories.
+
+        Examples
+        --------
+        >>> get_classes("animals")
+        ['bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe']
+
+        >>> get_classes("food & kitchen", "electronics")
+        ['bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone']
+        """
         names = []
         for name in category_names:
             if name in self.categories:
@@ -143,6 +207,21 @@ class _COCOHelper:
         return names
 
     def show_all_categories(self):
+        """📚 Print all available COCO categories.
+
+        Use this method to list all category groups available in the COCO dataset.
+
+        Example
+        -------
+        >>> show_all_categories()
+        📘 AVAILABLE CATEGORIES
+        ======================
+        01. Person
+        02. transport
+        03. traffic & signs
+        04. animals
+        ...
+        """
         print("\n" + "=" * 40)
         print("📘 AVAILABLE CATEGORIES")
         print("=" * 40)
@@ -150,6 +229,17 @@ class _COCOHelper:
             print(f"{i:02d}. {category}")
 
     def show_all_details(self):
+        """📚 Print all categories and their corresponding class names with IDs.
+
+        Example
+        -------
+        >>> show_all_details()
+        🔹 ANIMALS
+           • ID 14: bird
+           • ID 15: cat
+           • ID 16: dog
+        ...
+        """
         print("\n" + "=" * 50)
         print("📘 CATEGORIES & CLASSES DETAILS")
         print("=" * 50)
@@ -165,27 +255,70 @@ class _COCOHelper:
 # =========================
 __all__ = ["get_ids", "get_classes", "show_all_categories", "show_all_details", "help"]
 
-# internal instance (used by wrappers)
 _coco = _COCOHelper()
 
 def get_ids(*args):
-    """📊 Return class IDs for given categories."""
+    """📊 Return COCO class IDs for given categories.
+    
+    Use this function to retrieve numeric COCO class IDs for one or more categories.
+    
+    Available categories:
+        - Person
+        - transport
+        - traffic & signs
+        - animals
+        - personal items
+        - sports & recreation
+        - food & kitchen
+        - indoor objects
+        - electronics
+        - appliances
+        - miscellaneous
+
+    Example:
+        >>> get_ids("animals")
+        [14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    """
     return _coco.get_ids(*args)
 
+
 def get_classes(*args):
-    """🏷️ Return class names for given categories."""
+    """🏷️ Return COCO class names for given categories.
+    
+    Retrieve all class names (labels) under one or more COCO categories.
+    
+    Available categories:
+        - Person
+        - transport
+        - traffic & signs
+        - animals
+        - personal items
+        - sports & recreation
+        - food & kitchen
+        - indoor objects
+        - electronics
+        - appliances
+        - miscellaneous
+
+    Example:
+        >>> get_classes("electronics")
+        ['tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone']
+    """
     return _coco.get_classes(*args)
 
+
 def show_all_categories():
-    """📚 Print all category names."""
+    """📚 Display a list of all available COCO categories."""
     return _coco.show_all_categories()
 
+
 def show_all_details():
-    """📚 Print all categories and classes."""
+    """📘 Display all COCO categories with their class IDs and names."""
     return _coco.show_all_details()
 
+
 def help():
-    """🆘 Display all available methods."""
+    """🆘 Display all available public methods and usage examples."""
     print("""
 Available Methods:
 ------------------
