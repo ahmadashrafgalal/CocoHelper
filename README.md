@@ -6,22 +6,23 @@
 
 ## 🌟 Overview
 
-`COCOHelper` is a lightweight helper class that provides categorized access to **COCO dataset classes**, allowing you to:
+`COCOHelper` is a lightweight utility that provides **categorized access to COCO dataset classes**, allowing you to:
+
 - Get class names or IDs by category (e.g., animals, electronics, etc.)
 - Display all available categories and details
-- Use clean, human-readable methods — perfect for YOLO users and dataset visualization projects.
+- Use a clean, human-readable API — perfect for YOLO users and dataset visualization projects.
 
 ---
 
 ## 🚀 Installation
 
-You can install it directly via `pip` (after publishing to PyPI):
+You can install it directly via **pip** (after publishing to PyPI):
 
 ```bash
 pip install cocohelper
 ````
 
-Or locally (if you have the code):
+Or install it locally (if you have the source code):
 
 ```bash
 pip install .
@@ -32,22 +33,19 @@ pip install .
 ## 💡 Usage Example
 
 ```python
-from cocohelper import COCOHelper
+from cocohelper import get_classes, get_ids, show_all_categories, show_all_details
 
-# Initialize
-coco = COCOHelper()
+# Get all class names in a category
+print(get_classes("animals"))
 
-# Get all classes in a category
-print(coco.get_classes("animals"))
+# Get class IDs in multiple categories
+print(get_ids("transport", "electronics"))
 
-# Get all IDs in multiple categories
-print(coco.get_ids("transport", "electronics"))
+# Show all available category names
+show_all_categories()
 
-# Show all category names
-coco.show_all_categories()
-
-# Show all details (IDs + class names)
-coco.show_all_details()
+# Show detailed list of categories, IDs, and class names
+show_all_details()
 ```
 
 ---
@@ -88,9 +86,10 @@ coco.show_all_details()
 ## 🧠 Why Use COCOHelper?
 
 ✅ Simple & ready to use
-✅ Clean, readable structure
-✅ Perfect for YOLO / COCO experiments
-✅ Helps organize custom datasets easily
+✅ Clean, beginner-friendly API
+✅ Ideal for YOLO / COCO projects
+✅ Helps organize and visualize datasets easily
+✅ Designed for quick access to class names and IDs
 
 ---
 
@@ -116,4 +115,4 @@ This project is licensed under the **MIT License** — free to use and modify.
 
 ---
 
->  *“COCOHelper — making object detection classes simple, structured, and fun!”*
+> *“COCOHelper — making object detection classes simple, structured, and fun!”*

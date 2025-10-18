@@ -8,23 +8,17 @@ Version: 1.0
 Date: 2025-10-18
 
 Usage:
-    from coco_helper import COCOHelper
+    from cocohelper import get_classes, get_ids, show_all_categories
 
-    coco = COCOHelper()
-    print(coco.get_classes("animals"))
-    print(coco.get_ids("transport"))
-    coco.show_all_categories()
+    print(get_classes("animals"))
+    print(get_ids("transport"))
+    show_all_categories()
 """
 
-class COCOHelper:
-    """
-    🧠 COCOHelper
-    -------------
-    A helper class for handling COCO dataset categories and their class IDs.
-    """
+class _COCOHelper:
+    """Internal class — handles all COCO categories and logic."""
 
     def __init__(self):
-        """Initialize all COCO categories."""
         self.categories = {
             "Person": {
                 0: "person"
@@ -130,18 +124,7 @@ class COCOHelper:
             }
         }
 
-    # ============================================================
-
     def get_ids(self, *category_names):
-        """
-        📊 get_ids(*category_names)
-        ---------------------------
-        Return class IDs for one or more category names.
-
-        Example:
-            coco.get_ids("animals")
-            coco.get_ids("animals", "electronics")
-        """
         ids = []
         for name in category_names:
             if name in self.categories:
@@ -150,17 +133,7 @@ class COCOHelper:
                 print(f"⚠️ Category '{name}' not found!")
         return ids
 
-    # ============================================================
-
     def get_classes(self, *category_names):
-        """
-        🏷️ get_classes(*category_names)
-        -------------------------------
-        Return class names for one or more categories.
-
-        Example:
-            coco.get_classes("food & kitchen")
-        """
         names = []
         for name in category_names:
             if name in self.categories:
@@ -169,58 +142,56 @@ class COCOHelper:
                 print(f"⚠️ Category '{name}' not found!")
         return names
 
-    # ============================================================
-
     def show_all_categories(self):
-        """
-        📚 show_all_categories()
-        -------------------------
-        Print all categories in a neat, structured format.
-        """
         print("\n" + "=" * 40)
         print("📘 AVAILABLE CATEGORIES")
         print("=" * 40)
-
         for i, category in enumerate(self.categories.keys(), start=1):
             print(f"{i:02d}. {category}")
 
-    # ============================================================
     def show_all_details(self):
-        """
-        📚 show_all_details()
-        -----------------------
-        Print all categories and their classes in a detailed, readable format.
-        """
         print("\n" + "=" * 50)
         print("📘 CATEGORIES & CLASSES DETAILS")
         print("=" * 50)
-
         for category, items in self.categories.items():
             print(f"\n🔹 {category.upper()}")
             print("-" * (len(category) + 6))
             for cls_id, cls_name in items.items():
                 print(f"   • ID {cls_id:>2}: {cls_name}")
 
-    # ============================================================
 
-    def help(self):
-        """
-        🆘 help()
-        ---------
-        Print documentation for all available methods.
-        """
-        print("""
-        Available Methods:
-        ------------------
-        🧩 get_ids(*categories)       -> Returns list of class IDs.
-        🧩 get_classes(*categories)   -> Returns list of class names.
-        🧩 show_all_categories()      -> Prints all COCO categories.
-        🧩 show_all_details()         -> Prints all COCO categories and their classes.
-        🧩 help()                     -> Shows this help message.
+# =========================
+# Public interface (clean API)
+# =========================
+__all__ = ["get_ids", "get_classes", "show_all_categories", "show_all_details", "help"]
 
-        Example:
-            coco = COCOHelper()
-            ids = coco.get_ids("animals")
-            names = coco.get_classes("electronics")
-            coco.show_all_categories()
-        """)
+# internal instance (used by wrappers)
+_coco = _COCOHelper()
+
+def get_ids(*args):
+    """📊 Return class IDs for given categories."""
+    return _coco.get_ids(*args)
+
+def get_classes(*args):
+    """🏷️ Return class names for given categories."""
+    return _coco.get_classes(*args)
+
+def show_all_categories():
+    """📚 Print all category names."""
+    return _coco.show_all_categories()
+
+def show_all_details():
+    """📚 Print all categories and classes."""
+    return _coco.show_all_details()
+
+def help():
+    """🆘 Display all available methods."""
+    print("""
+Available Methods:
+------------------
+✅ get_ids(*categories)        → Returns list of class IDs.
+✅ get_classes(*categories)    → Returns list of class names.
+✅ show_all_categories()       → Prints all COCO categories.
+✅ show_all_details()          → Prints categories and classes.
+✅ help()                      → Shows this help message.
+""")
